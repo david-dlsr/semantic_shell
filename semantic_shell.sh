@@ -28,14 +28,16 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
 #  FUNCOES DO SCRIPT   #
 ########################
 function config_proj(){
+echo -e "\033[7;30;41mDoing - \033[1;33m Configurando path do projeto... \033[0;37m\n"	
 # Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
-read -p "Iformar diretorio do commit [S|N]: " resp_commit_path;
+read -p "        Informar diretorio do commit [S|N]: " resp_commit_path;
 case $resp_commit_path in
-     s|S|y|Y)  read -p "Entre com o caminho do projeto" msg_commit_path; 
-          if [ -d $msg_commit_path ] ;then echo "diretorio existe ! continuando ....";cd $msg_commit_path ;else echo "O diretorio nao existe...Saindao";fi;;
-     *) echo "Sera usado o path atual: $DIR";;
+     s|S|y|Y)  read -p "Entre com o path para o commit do projeto: " msg_commit_path; 
+          if [ -d $msg_commit_path ] ;then echo "Diretorio existe! continuando....";cd $msg_commit_path ;else echo "O diretorio nao existe...Saindao";fi;;
+     *) echo -e "Sera usado o path atual para o commit:\n - $DIR";;
 esac;
 
+echo -e "\033[7;30;41m Doing \033[1;33m configurando alias para o git do projeto... "	
 # configurando atalhos para o git, estes seram utilizados dentro do proprio script
 $Git config --global alias.b "branch";
 $Git config --global alias.ck "checkout";
@@ -45,7 +47,8 @@ $Git config --global alias.cm "commit -m";
 $Git config --global alias.cam "commit -a -m";
 
 # git commits semanticos
-$Git config --global alias.cs "/bin/bash $PWD";
+#$Git config --global alias.cs "! /bin/bash $PWD/$0";
+$Git config --global alias.cs "! /bin/bash $(dirname $0)/$0";
 
 # logs interessantes
 $Git config --global alias.l   "log --pretty=format:'%C(blue)%h -%<(12,trunc)%C(red)%cr - %<(11,trunc)%C(cyan)%cn - %C(white)%s - %C(yellow)%d'";
@@ -59,7 +62,7 @@ $Git config --global  core.editor "vim";
 function seleciona_tag(){
 git status ;    
 clear;
-echo -e "OLa DEV, Lembre de adicionar os arquivos para a staged area antes de chamar esse script !!!\nEscolha enre as Tags disponiveis para commit:\n\n\
+echo -e "\033[7;30;41m Doing - \033[1;33mEscolha enre as Tags disponíveis para commits semânticos:\033[0;37m\n\n\
 \033[1;36m1)\033[1;31m feat:\033[0;33m     Utilizado quando se adiciona alguma nova funcionalidade do zero ao código/serviço/projeto\n\
 \033[1;36m2)\033[1;31m fixH:\033[0;33m     Usado quando existem erros de código que estão causando bugs corrigidos na producao\n\
 \033[1;36m3)\033[1;31m fix:\033[0;33m      Usado quando existem erros de código que estão causando bugs corrigidos no desenvolvimento\n\
@@ -111,11 +114,13 @@ function msg_commit(){
 function infos(){
      echo "mostrando local do script $(basename $0)  - $DIR";
      sleep 3;
+     clear;
 }
 
-#######################
+########################
 #    CORPO DO SCRIPT   #
-#######################
+########################
+
 # chamadas de funcoes
 infos;
 config_proj;
