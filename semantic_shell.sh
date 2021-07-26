@@ -30,9 +30,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
 function config_proj(){
 # Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
 read -p "Iformar diretorio do commit [S|N]: " resp_commit_path;
-case $msg_commit_path in
+case $resp_commit_path in
      s|S|y|Y)  read -p "Entre com o caminho do projeto" msg_commit_path; 
-          if [ -d $msg_commit ] ;then echo "diretorio existe ! continuando ....";cd $msg_commit ;else echo "O diretorio nao existe...Saindao";fi;;
+          if [ -d $msg_commit_path ] ;then echo "diretorio existe ! continuando ....";cd $msg_commit_path ;else echo "O diretorio nao existe...Saindao";fi;;
      *) echo "Sera usado o path atual: $DIR";;
 esac;
 
