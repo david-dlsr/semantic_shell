@@ -29,9 +29,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
 #  FUNCOES DO SCRIPT   #
 ########################
 function config_proj(){
-echo -e "\033[7;30;41mDoing - \033[1;33m Configurando path do projeto... \033[0;37m\n"	
+echo -e "\033[7;30;41m - Doing - \033[1;33m Configurando path do projeto... \033[0;37m\n"	
 # Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
-read -p "        Alterar o diretório atual do commit? [S|N]: " resp_commit_path;
+read -p "          Alterar o diretório atual do commit? [S|N]: " resp_commit_path;
 case $resp_commit_path in
      s|S|y|Y)  read -p "Entre com o path para o commit do projeto: " msg_commit_path; 
           if [ -d $msg_commit_path ] ;then echo "Diretorio existe! continuando....";cd $msg_commit_path ;else echo "O diretorio nao existe...Saindao";fi;;
@@ -63,7 +63,7 @@ $Git config --global  core.editor "vim";
 function seleciona_tag(){
 git status ;    
 clear;
-echo -e "\033[7;30;41m Doing - \033[1;33mEscolha enre as Tags disponíveis para commits semânticos:\033[0;37m\n\n\
+echo -e "\033[7;30;41m Doing - \033[1;33mEscolha enre as Tags disponíveis para commits semânticos:\033[m\n\n\
 \033[1;36m1)\033[1;31m feat:\033[0;33m     Utilizado quando se adiciona alguma nova funcionalidade do zero ao código/serviço/projeto\n\
 \033[1;36m2)\033[1;31m fixH:\033[0;33m     Usado quando existem erros de código que estão causando bugs corrigidos na producao\n\
 \033[1;36m3)\033[1;31m fix:\033[0;33m      Usado quando existem erros de código que estão causando bugs corrigidos no desenvolvimento\n\
