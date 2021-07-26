@@ -5,8 +5,9 @@
 ###########################
 #  Função: Ajudar na normatização do histórico de commits em um projeto, fazendo utilização dos commits semanticos
 #  Fonte :  https://www.conventionalcommits.org/pt-br/v1.0.0-beta.4/
-#  lembrando que ainda temos as tags semânticas que ficaram para um proximo release
+#  lembrando que ainda temos as tags semânticas que ficarão para um próximo release
 #  script criado em shellscript utilizando recursos do shell
+#  script desenvolvido para ser executado pelo bash 
 
 
 #######################
@@ -30,7 +31,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
 function config_proj(){
 echo -e "\033[7;30;41mDoing - \033[1;33m Configurando path do projeto... \033[0;37m\n"	
 # Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
-read -p "        Informar diretorio do commit [S|N]: " resp_commit_path;
+read -p "        Alterar o diretório atual do commit? [S|N]: " resp_commit_path;
 case $resp_commit_path in
      s|S|y|Y)  read -p "Entre com o path para o commit do projeto: " msg_commit_path; 
           if [ -d $msg_commit_path ] ;then echo "Diretorio existe! continuando....";cd $msg_commit_path ;else echo "O diretorio nao existe...Saindao";fi;;
