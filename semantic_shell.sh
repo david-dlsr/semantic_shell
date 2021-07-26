@@ -1,8 +1,8 @@
  #!/bin/bash
 
-#####################
-#     DESCRITIVO         #
-#####################
+###########################
+#      DESCRITIVO         #
+###########################
 #  Função: Ajudar na normatização do histórico de commits em um projeto, fazendo utilização dos commits semanticos
 #  Fonte :  https://www.conventionalcommits.org/pt-br/v1.0.0-beta.4/
 #  lembrando que ainda temos as tags semânticas que ficaram para um proximo release
@@ -10,7 +10,7 @@
 
 
 #######################
-# VARIAVEIS GLOBAIS  #
+#  VARIAVEIS GLOBAIS  #
 #######################
 branch_atual="$(git branch|grep ^*|awk '{print $2}')";
 msg_tag_1="Melhor pratica é manipular um arquivo por commit com essa TAG";
