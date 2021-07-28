@@ -49,7 +49,7 @@ $Git config --global alias.cam "commit -a -m";
 
 # git commits semanticos
 #$Git config --global alias.cs "! /bin/bash $PWD/$0";
-$Git config --global alias.cs "! /bin/bash $(dirname $0)/$0";
+$Git config --global alias.CS  "! /bin/bash $(dirname $0)/$0";
 
 # logs interessantes
 $Git config --global alias.l   "log --pretty=format:'%C(blue)%h -%<(12,trunc)%C(red)%cr - %<(11,trunc)%C(cyan)%cn - %C(white)%s - %C(yellow)%d'";
