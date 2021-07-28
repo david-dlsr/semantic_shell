@@ -1,4 +1,5 @@
 # semantic_shell
+<<<<<<< HEAD
 
   Função do script:
      Trabalhar como alias no git.
@@ -11,3 +12,6 @@
      executar o script com o bash -> bash /$USER/.aux_git/semantic_shell.sh
      Informar se quer alterar o diretorio do projeto onde sera aplicado o commit
      Seguir respondendo os questionamentos sobre o commit
+=======
+ 
+
