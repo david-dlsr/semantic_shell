@@ -35,10 +35,10 @@ read -p "          Alterar o diretório atual do commit? [S|N]: " resp_commit_pa
 case $resp_commit_path in
      s|S|y|Y)  read -p "Entre com o path para o commit do projeto: " msg_commit_path; 
           if [ -d $msg_commit_path ] ;then echo "Diretorio existe! continuando....";cd $msg_commit_path ;else echo "O diretorio nao existe...Saindao";fi;;
-     *) echo -e "Sera usado o path atual para o commit:\n - $DIR";;
+     *) echo -e "          Será usado o path atual para o commit:\n          - $DIR";sleep 2;;
 esac;
 
-echo -e "\033[7;30;41m Doing \033[1;33m configurando alias para o git do projeto... "	
+echo -e "\033[7;30;41m Doing \033[1;33m configurando alias para o git do projeto...\033[0m"	
 # configurando atalhos para o git, estes seram utilizados dentro do proprio script
 $Git config --global alias.b "branch";
 $Git config --global alias.ck "checkout";
@@ -61,8 +61,10 @@ $Git config --global  core.editor "vim";
 }
 
 function seleciona_tag(){
-git status ;    
 clear;
+# integrando arquivos modificados excluidos ou adicionados antes de realizar o commit
+echo -e "\033[1;33mTodos os aquivos EDITADOS|DELETADOS|NOVOS foram incluidos na STAGE AREA\033[m\n"
+git add --all .
 echo -e "\033[7;30;41m Doing - \033[1;33mEscolha enre as Tags disponíveis para commits semânticos:\033[m\n\n\
 \033[1;36m1)\033[1;31m feat:\033[0;33m     Utilizado quando se adiciona alguma nova funcionalidade do zero ao código/serviço/projeto\033[m\n\
 \033[1;36m2)\033[1;31m fixH:\033[0;33m     Usado quando existem erros de código que estão causando bugs corrigidos na producao\033[m\n\
@@ -91,7 +93,7 @@ export TAG escope;
 
 function arq_alterado(){
 cont=0;
-if [ -z "$(git st|awk '{print $2}')" ]
+if [ -z "$(git status -s|awk '{print $2}')" ]
      then 
           echo "Nao foi encontrado arquivo alterado na arvore...";       
        else
