@@ -61,7 +61,7 @@ $Git config --global  core.editor "vim";
 }
 
 function seleciona_tag(){
-clear;
+#clear;
 # integrando arquivos modificados excluidos ou adicionados antes de realizar o commit
 echo -e "\033[1;33mTodos os aquivos EDITADOS|DELETADOS|NOVOS foram incluidos na STAGE AREA\033[m\n"
 git add --all .
@@ -95,7 +95,8 @@ function arq_alterado(){
 cont=0;
 if [ -z "$(git status -s|awk '{print $2}')" ]
      then 
-          echo "Nao foi encontrado arquivo alterado na arvore...";       
+          echo -e "\nNao exitem alterações para commitar... Saindo do script\n";
+          exit;       
        else
           while read entrada;
                do   
@@ -104,6 +105,7 @@ if [ -z "$(git status -s|awk '{print $2}')" ]
                      let cont++; 
                      done< <(git st|awk '{print $2}')
                 read -p "Selecione o numero do arquivo mais relevante  para mostrar no commit:  " resp_arq_alt;
+                echo -e "\n";
                 arquivo=${arquiv[$resp_arq_alt]};
                 export arquivo;
 fi;            
@@ -127,6 +129,7 @@ function infos(){
 # chamadas de funcoes
 infos;
 config_proj;
+arq_alterado;
 seleciona_tag;
 
 # tratamento de escopo no commit
@@ -134,7 +137,7 @@ if [ -z $escope ]
      then  
           echo "$arq_msg $Tag";
           # chamadas de funcoes
-          arq_alterado;
+          #arq_alterado;
           msg_commit;
           echo "$Tag($resp_escope): $msg_final - Arq: $arquivo - In: $branch_atual"    
           MSG="$Tag($resp_escope): $msg_final - Arq: $arquivo - In: $branch_atual"; 
