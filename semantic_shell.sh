@@ -29,7 +29,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
 #  FUNCOES DO SCRIPT   #
 ########################
 function config_proj(){
-echo -e "\033[7;30;41m - Doing - \033[1;33m Configurando path do projeto... \033[0;37m\n"	
+echo -e "\033[7;30;41m - Doing - \033[1;33m Configurando path do projeto... \033[0m\n"	
 # Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
 read -p "          Alterar o diretório atual do commit? [S|N]: " resp_commit_path;
 case $resp_commit_path in
@@ -64,15 +64,15 @@ function seleciona_tag(){
 git status ;    
 clear;
 echo -e "\033[7;30;41m Doing - \033[1;33mEscolha enre as Tags disponíveis para commits semânticos:\033[m\n\n\
-\033[1;36m1)\033[1;31m feat:\033[0;33m     Utilizado quando se adiciona alguma nova funcionalidade do zero ao código/serviço/projeto\n\
-\033[1;36m2)\033[1;31m fixH:\033[0;33m     Usado quando existem erros de código que estão causando bugs corrigidos na producao\n\
-\033[1;36m3)\033[1;31m fix:\033[0;33m      Usado quando existem erros de código que estão causando bugs corrigidos no desenvolvimento\n\
-\033[1;36m4)\033[1;31m refactor:\033[0;33m Utilizado na realização de uma refatoração que não causará impacto direto no código ou em qualquer lógica/regra de negócio\n\
-\033[1;36m5)\033[1;31m style:\033[0;33m    Utilizado quando são realizadas mudanças no estilo e formatação do código que não irão impactar em nenhuma lógica do código\n\
-\033[1;36m6)\033[1;31m test:\033[0;33m     Usado quando se realizam alterações de qualquer tipo nos testes, seja a adição de novos testes ou a refatoração de testes já existentes\n\
-\033[1;36m7)\033[1;31m doc:\033[0;33m      Ideal para quando se adiciona ou modifica alguma documentação no código ou do repositório em questão\n\
-\033[1;36m8)\033[1;31m env:\033[0;33m      Utilizado quando se modifica ou adiciona algum arquivo de CI/CD\n\
-\033[1;36m9)\033[1;31m build:\033[0;33m    Usado quando se realiza alguma modificação em arquivos de build e dependências\033[0;37m\n"
+\033[1;36m1)\033[1;31m feat:\033[0;33m     Utilizado quando se adiciona alguma nova funcionalidade do zero ao código/serviço/projeto\033[m\n\
+\033[1;36m2)\033[1;31m fixH:\033[0;33m     Usado quando existem erros de código que estão causando bugs corrigidos na producao\033[m\n\
+\033[1;36m3)\033[1;31m fix:\033[0;33m      Usado quando existem erros de código que estão causando bugs corrigidos no desenvolvimento\033[m\n\
+\033[1;36m4)\033[1;31m refactor:\033[0;33m Utilizado na realização de uma refatoração que não causará impacto direto no código ou em qualquer lógica/regra de negócio\033[m\n\
+\033[1;36m5)\033[1;31m style:\033[0;33m    Utilizado quando são realizadas mudanças no estilo e formatação do código que não irão impactar em nenhuma lógica do código\033[m\n\
+\033[1;36m6)\033[1;31m test:\033[0;33m     Usado quando se realizam alterações de qualquer tipo nos testes, seja a adição de novos testes ou a refatoração de testes já existentes\033[m\n\
+\033[1;36m7)\033[1;31m doc:\033[0;33m      Ideal para quando se adiciona ou modifica alguma documentação no código ou do repositório em questão\033[m\n\
+\033[1;36m8)\033[1;31m env:\033[0;33m      Utilizado quando se modifica ou adiciona algum arquivo de CI/CD\033[m\n\
+\033[1;36m9)\033[1;31m build:\033[0;33m    Usado quando se realiza alguma modificação em arquivos de build e dependências\033[m\n"
 read -p "Informe o numero que se enquadra no seu commit: " resp_com;
 case $resp_com in 
      1) Tag="feat";arq_msg="$msg_tag_1";;
