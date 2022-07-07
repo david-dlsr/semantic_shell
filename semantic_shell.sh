@@ -1,7 +1,7 @@
  #!/bin/bash
 
 ###########################
-#      DESCRITIVO         #
+#     DESCRITIVO         #
 ###########################
 #  Função: Ajudar na normatização do histórico de commits em um projeto, fazendo utilização dos commits semanticos
 #  Fonte :  https://www.conventionalcommits.org/pt-br/v1.0.0-beta.4/
@@ -13,7 +13,7 @@
 #######################
 #  VARIAVEIS GLOBAIS  #
 #######################
-branch_atual="$(git branch|grep ^*|awk '{print $2}')";
+#branch_atual="$(git branch --show-current)";
 msg_tag_1="Melhor pratica é manipular um arquivo por commit com essa TAG";
 msg_tag_N="Podem ser utilizados varios arquivos por commit com essa TAG";
 resp_commit_path="";
@@ -28,15 +28,30 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
 ########################
 #  FUNCOES DO SCRIPT   #
 ########################
+function branchAtual(){ 
+     branch_atual="$(${Git} branch --show-current)";echo "branch_atual: ${branch_atual}" 
+     }
+
+
 function config_proj(){
 echo -e "\033[7;30;41m - Doing - \033[1;33m Configurando path do projeto... \033[0m\n"	
 # Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
-read -p "          Alterar o diretório atual do commit? [S|N]: " resp_commit_path;
+read -p "          Alterar o diretório atual do commit? $(pwd -P) [S|N]: " resp_commit_path;
 case $resp_commit_path in
      s|S|y|Y)  read -p "Entre com o path para o commit do projeto: " msg_commit_path; 
-          if [ -d $msg_commit_path ] ;then echo "Diretorio existe! continuando....";cd $msg_commit_path ;else echo "O diretorio nao existe...Saindao";fi;;
+          if [ -d $msg_commit_path ] 
+             then 
+                   echo "Diretorio existe! continuando....";
+                   cd $msg_commit_path;
+                   read -p "Informe o nome da branch onde sera realizado o commit: " branch_new;
+                   git ck -b ${branch_new} && branchAtual;
+              else
+                   echo "O diretorio nao existe...Saindo";
+          fi;;
      *) echo -e "          Será usado o path atual para o commit:\n          - $DIR";sleep 2;;
 esac;
+
+
 
 echo -e "\033[7;30;41m Doing \033[1;33m configurando alias para o git do projeto...\033[0m"	
 # configurando atalhos para o git, estes seram utilizados dentro do proprio script
@@ -139,14 +154,14 @@ if [ -z $escope ]
           # chamadas de funcoes
           #arq_alterado;
           msg_commit;
-          echo "$Tag($resp_escope): $msg_final - Arq: $arquivo - In: $branch_atual"    
+          echo "$Tag($resp_escope): $msg_final - Arq: $arquivo - In: $branch_atual";    
           MSG="$Tag($resp_escope): $msg_final - Arq: $arquivo - In: $branch_atual"; 
      else
           echo "$arq_msg $Tag";
           # chamadas de funcoes
           arq_alterado;
           msg_commit;
-          echo "$Tag: $msg_final - Arq: $arquivo - In: $branch_atual"
+          echo "$Tag: $msg_final - Arq: $arquivo - In: $branch_atual";
           MSG="$Tag: $msg_final - Arq: $arquivo - In: $branch_atual";
 fi;     
 
