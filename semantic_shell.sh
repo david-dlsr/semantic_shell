@@ -35,20 +35,31 @@ function branchAtual(){
 
 function config_proj(){
 echo -e "\033[7;30;41m - Doing - \033[1;33m Configurando path do projeto... \033[0m\n"	
-# Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
-read -p "          Alterar o diretório atual do commit? $(pwd -P) [S|N]: " resp_commit_path;
+
+if [ -z "${1}" ]
+   then 
+       # Perguntando sobre novo path e testando caso utilize, se não utilizar usa o diretorio atual de execução do script
+      echo "Será realizado o commite do projeto semantic"
+      resp_commit_path="N";
+   else
+      msg_commit_path="${1}"; 
+      resp_commit_path="Y";
+fi
+
 case $resp_commit_path in
-     s|S|y|Y)  read -p "Entre com o path para o commit do projeto: " msg_commit_path; 
+     s|S|y|Y)  
           if [ -d $msg_commit_path ] 
              then 
                    echo "Diretorio existe! continuando....";
                    cd $msg_commit_path;
+                   echo "PATH-ATUAL: $PWD"
+                   branchAtual;
                    read -p "Informe o nome da branch onde sera realizado o commit: " branch_new;
                    git ck -b ${branch_new} && branchAtual;
               else
                    echo "O diretorio nao existe...Saindo";
           fi;;
-     *) echo -e "          Será usado o path atual para o commit:\n          - $DIR";sleep 2;;
+     *) echo -e "          Será usado o path atual para o commit:\n   - $DIR";sleep 2;;
 esac;
 
 
@@ -143,7 +154,7 @@ function infos(){
 
 # chamadas de funcoes
 infos;
-config_proj;
+config_proj $1;
 arq_alterado;
 seleciona_tag;
 
